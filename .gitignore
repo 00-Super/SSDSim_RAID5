@@ -1,0 +1,28 @@
+# compiled files
+*.o
+*.out
+*.exe
+
+# Windows / WSL metadata
+*:Zone.Identifier
+
+# logs and temporary files
+*.log
+*.tmp
+
+# editor files
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+
+# build directories
+build/
+cmake-build-*/
+
+result/
+results/
+output/
+trace/
+traces/

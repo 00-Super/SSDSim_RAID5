@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run SSD",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/ssd",
+            "args": ["1", "/mnt/d/SSD/Ali/2024/219.csv", "4"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "externalConsole": false,
+            "console": "integratedTerminal"
+        }
+    ]
+}

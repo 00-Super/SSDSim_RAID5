@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run SSD",
+            "type": "shell",
+            "command": "./ssd",
+            "args": ["1", "trace/1616_2.csv", "4"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

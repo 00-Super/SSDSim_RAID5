@@ -1,0 +1,8 @@
+{
+    "editor.fontSize": 18,
+    "screencastMode.fontSize": 56,
+    "search.exclude": {
+    "**/trace": true,          // 忽略 trace 文件夹
+    "**/*.dat": true           // 忽略所有 .dat 文件
+  }
+}
