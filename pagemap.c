@@ -413,10 +413,10 @@ struct ssd_info *pre_process_page_raid(struct ssd_info *ssd)
                                 int check=ssd->stripe.check;
 								raid_pre_read(ssd, ssd->stripe.checkLpn * ssd->parameter->subpage_page, ssd->stripe.checkLpn, mask, full_page);
                                 //检查正在处理的校验位和数据位不在同一个通道上
-								// if(!ssd->trip2Page[ssd->stripe.nowStripe].location || ssd->trip2Page[ssd->stripe.nowStripe].location->channel % STRIPENUM != i){
-								// 	printf("parity %p %d %d \n", ssd->trip2Page[ssd->stripe.nowStripe].location, ssd->trip2Page[ssd->stripe.nowStripe].location->channel, i);	
-								// 	abort();
-								// }
+								if(!ssd->trip2Page[ssd->stripe.nowStripe].location || ssd->trip2Page[ssd->stripe.nowStripe].location->channel % 4 != i){
+									printf("parity %p %d %d \n", ssd->trip2Page[ssd->stripe.nowStripe].location, ssd->trip2Page[ssd->stripe.nowStripe].location->channel, i);	
+									abort();
+								}
 							}
                             else{
 								j %= (ssd->stripe.all - 1);
@@ -427,10 +427,10 @@ struct ssd_info *pre_process_page_raid(struct ssd_info *ssd)
 								raid_pre_read(ssd, ssd->stripe.req[j].lpn * ssd->parameter->subpage_page, ssd->stripe.req[j].lpn, \
 									ssd->stripe.req[j].sub_size, full_page);
 								struct local *location = find_location(ssd, ssd->dram->map->map_entry[ssd->stripe.req[j].lpn].pn);
-                                // if(location->channel % STRIPENUM != i){
-								// 	printf("data %d %d \n", location->channel, i);	
-								// 	abort();
-								// }
+                                if(location->channel % 4 != i){
+									printf("data %d %d \n", location->channel, i);	
+									abort();
+								}
 								free(location);
                                 //trip2page[条带号].lpn[0/1/2]:这里的lpn数组只存放数据位的lpn，与校验位无关。
 								ssd->trip2Page[ssd->stripe.nowStripe].lpn[j] = ssd->stripe.req[j].lpn;

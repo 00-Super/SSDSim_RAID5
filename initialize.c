@@ -87,37 +87,8 @@ struct ssd_info *initiation(struct ssd_info *ssd)
 	
 	strncpy(ssd->parameterfilename,"page.parameters",16);
 	strncpy(ssd->outputfilename,"ex.out",7);
-	// strncpy(ssd->statisticfilename,"statistic10.dat",16);
-	// strncpy(ssd->statisticfilename2,"statistic2.dat",15);
-
-	char temp_name[64];
-	char *base_name;
-	char *dot_ptr;
-
-	// 1. 从 tracefilename (如 "trace/1615_0.csv") 中提取基础文件名
-	base_name = strrchr(ssd->tracefilename, '/');
-	if (base_name != NULL) {
-		base_name++; // 跳过 '/'，得到 "1615_0.csv"
-	} else {
-		base_name = ssd->tracefilename; // 如果没找到 '/'，说明直接是文件名
-	}
-
-	// 2. 拷贝一份，准备截断后缀
-	strncpy(temp_name, base_name, sizeof(temp_name) - 1);
-	temp_name[sizeof(temp_name) - 1] = '\0';
-
-	// 3. 找到 '.' 并截断，去掉 ".csv"，现在 temp_name 里只剩 "1615_0"
-	dot_ptr = strrchr(temp_name, '.');
-	if (dot_ptr != NULL) {
-		*dot_ptr = '\0';
-	}
-
-	// 4. 动态拼接最终的输出路径
-	// 生成 result/1615_0.dat
-	snprintf(ssd->statisticfilename, sizeof(ssd->statisticfilename), "result/no_buffer/3+1/%s.dat", temp_name);
-
-	// (可选) 如果你的 statisticfilename2 也需要动态保存，可以加个后缀以防冲突，比如 result/1615_0_2.dat
-	snprintf(ssd->statisticfilename2, sizeof(ssd->statisticfilename2), "result/%s_2.dat", temp_name);
+	strncpy(ssd->statisticfilename,"statistic10.dat",16);
+	strncpy(ssd->statisticfilename2,"statistic2.dat",15);
 
 	//读取参数文件并将文件中的参数加载到ssd数据结构中
 	parameters=load_parameters(ssd->parameterfilename);
@@ -164,11 +135,6 @@ struct ssd_info *initiation(struct ssd_info *ssd)
 	ssd->newest_req_with_lsb_l = 0;
 	ssd->sub_request_success = 0;
 	ssd->sub_request_all = 0;
-
-	/*add By BH*/
-	ssd->parity_hit = 0;
-	ssd->parity_miss = 0;
-	/*===============*/
 	
 	for(i=0;i<10;i++){
 		ssd->last_ten_write_lat[i]=0;
@@ -246,10 +212,8 @@ struct dram_info * initialize_dram(struct ssd_info * ssd)
 	//dram->buffer = (tAVLTree *)avlTreeCreate((void*)keyCompareFunc , (void *)freeFunc);
 	
 	dram->buffer = (tHash *)hash_create((void *)freeFunc);
-	dram->parity_buffer = (tHash *)hash_create((void *)freeFunc);
 	
-	dram->buffer->max_buffer_sector=ssd->parameter->dram_capacity/SECTOR/2 ; //512
-	// dram->parity_buffer->max_buffer_sector=ssd->parameter->dram_capacity/SECTOR/2 * 0.05;
+	dram->buffer->max_buffer_sector=ssd->parameter->dram_capacity/SECTOR; //512
 
 	dram->map = (struct map_info *)malloc(sizeof(struct map_info));
 	alloc_assert(dram->map,"dram->map");

@@ -1,5 +1,5 @@
 parameter file: page.parameters
-trace file: trace/1615_0.csv
+trace file: hm_1.csv
 -----------------------parameter file----------------------
 #parameter file
 #dram capacity = 131072;     #the unit is B
@@ -50,7 +50,7 @@ page number = 384;
 subpage page = 16;
 page capacity = 8192;
 subpage capacity = 512;
-t_PROG = 50000;             #the unit is ns  Program 2000000
+t_PROG = 700000;             #the unit is ns  Program 2000000
 t_PROG_L = 500000;           #program on LSB
 t_PROG_C = 2000000;           #program on CSB
 t_PROG_M = 5500000;           #program on MSB
@@ -79,7 +79,7 @@ t_DH = 5;
 t_WC = 5;              #original value 25
 t_WH = 10;
 t_ADL = 70;
-t_R = 25000;                     #Read 75000
+t_R = 45000;                     #Read 75000
 t_AR = 10;
 t_CLR = 10;
 t_RR = 20;
@@ -123,155 +123,5 @@ greed MPW command=1;            #1 for using multi-plane write greedily, 0 for n
 aged=0;                         #1 for making SSD aged, 0 for keeping SSD non-aged
 aged ratio=0.7;                #If we need to make SSD aged, set the aged ratio in advance
 -----------------------simulation output----------------------
-10000,      54580594123,             0,         97651,  -26667995765,        382688,        382680,        382656,             0,             0,       1714464,          2486,          7513,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-30000,     144928441971,             0,        103414,  -81315166206,          1324,          1314,          1314,             0,             0,       1711002,          5560,          4440,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-40000,     172383190103,             0,        106157, -106182771749,           619,           621,           626,             0,             0,       1710383,          7462,          2538,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-50000,     197428917709,             0,        141048, -141137227658,           469,           475,           472,             0,             0,       1709914,          7627,          2373,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-80000,     350521473739,             0,         77930, -133750066354,          4473,          4485,          4475,             0,             0,       1683368,          5466,          4534,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-90000,     371453971147,             0,         91207, -239054322748,           419,           413,           427,             0,             0,       1682949,          8138,          1862,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-130000,     710882112971,             0,        102545, -471702828016,          2152,          2149,          2149,             0,             0,       1674296,          2322,          7678,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-160000,     949995909888,             0,         85873, -588782069364,          2530,          2536,          2528,             0,             0,       1667222,          1891,          8109,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-170000,    1022427259251,             0,        104532, -637023921700,          2135,          2136,          2148,             0,             0,       1665087,          1584,          8416,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-190000,    1211128122844,             0,         90974, -790226451577,          4326,          4324,          4328,             0,             0,       1658593,           967,          9033,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-220000,    1464067693003,             0,         87575, -1055836783633,          1786,          1792,          1789,             0,             0,       1652790,          2205,          7795,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-240000,    1539020980939,             0,         72053, -1042095517031,           963,           965,           964,             0,             0,       1648506,          6006,          3994,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-250000,    1581343491019,             0,         76085, -1092409915717,          2066,          2060,          2057,             0,             0,       1646440,          6181,          3819,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-260000,    1612482537931,             0,         76815, -983612243907,          2609,          2616,          2614,             0,             0,       1643831,          6191,          3809,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-270000,    1645775065070,             0,         83101, -961504201653,          2600,          2600,          2600,             0,             0,       1641231,          6087,          3913,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-280000,    1689867563979,             0,        118024, -1050968702415,          1296,          1292,          1291,             0,             0,       1639935,          5698,          4302,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-290000,    1733066119936,             0,         84947, -1033127936497,          2049,          2047,          2049,             0,             0,       1637886,          4226,          5774,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-300000,    1760390430358,             0,         93414, -1271577867171,          2391,          2395,          2397,             0,             0,       1635495,          4396,          5604,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-310000,    1770892345088,             0,         92064, -1571653401301,           895,           893,           891,             0,             0,       1634600,           920,          9080,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-350000,    1816071257035,             0,         82305, -1728497358418,           341,           338,           332,             0,             0,       1633135,          1072,          8928,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-380000,    1851285993163,             0,         88796, -1760683844857,           336,           338,           341,             0,             0,       1631929,          1709,          8291,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-430000,    1902327903947,             0,         80884, -1660242060113,           578,           584,           586,             0,             0,       1629834,          1015,          8985,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-550000,    2024075967126,             0,         89162, -1986805806027,            58,            64,            57,             0,             0,       1624637,          4058,          5942,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-590000,    2046242177995,             0,        127766, -1938219805676,           355,           360,           361,             0,             0,       1624028,          2367,          7633,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-610000,    2056439083996,             0,        106116, -1956629561556,           350,           344,           348,             0,             0,       1623489,          3380,          6620,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-620000,    2062015146955,             0,         93620, -1973438254102,           344,           350,           343,             0,             0,       1623145,          3101,          6899,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-630000,    2066549769163,             0,         87017, -1981267399569,           301,           303,           302,             0,             0,       1622844,          4397,          5603,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-640000,    2070619712203,             0,         87422, -2015514489948,            73,            75,            77,             0,             0,       1622771,          5009,          4991,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-650000,    2076340906134,             0,         99955, -2019069869435,           104,            97,            98,             0,             0,       1622667,          3470,          6530,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-660000,    2082466800092,             0,         92317, -2001308807952,           255,           252,           255,             0,             0,       1622412,          3100,          6900,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-830000,    2221387272907,             0,        109798, -2148711394073,           201,           205,           212,             0,             0,       1618610,          1124,          8876,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-860000,    2264663232000,             0,        116725, -1647503086676,          1133,          1144,          1150,             0,             0,       1616400,          3983,          6017,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-870000,    2324685536203,             0,        126385, -1491343725951,          1629,          1624,          1623,             0,             0,       1614771,          3978,          6022,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-900000,    2614581251990,             0,         99042, -1848974439341,          2378,          2381,          2381,             0,             0,       1599805,          1193,          8807,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-910000,    2683862733056,             0,        105379, -1713983489053,          2049,          2046,          2047,             0,             0,       1597756,          2787,          7213,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-930000,    2884203793867,             0,         86291, -2197770439623,          1438,          1435,          1436,             0,             0,       1594149,          1636,          8364,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-940000,    2908472685974,             0,         98885, -2334415714128,           452,           456,           461,             0,             0,       1593697,          7510,          2490,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-950000,    2937698473110,             0,         93558, -2233282599488,           622,           617,           614,             0,             0,       1593075,          7522,          2478,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-980000,    3082816321227,             0,         74773, -1722106584356,          2039,          2038,          2049,             0,             0,       1583467,          3830,          6170,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-1000000,    3200726009203,             0,         88991, -2113696414498,          1729,          1727,          1728,             0,             0,       1580402,          2976,          7024,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-1020000,    3300072284054,             0,         88796, -2013754478036,          1053,          1050,          1054,             0,             0,       1576388,          7563,          2437,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-1030000,    3362648728011,             0,         86657, -2062340075309,          2397,          2401,          2396,             0,             0,       1573991,          2056,          7944,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-1040000,    3419749911958,             0,         86814, -2387712813954,          1584,          1581,          1583,             0,             0,       1572407,          4542,          5458,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
-the 0 channel, 0 chip, 0 die, 0 plane has :             0 erase operations
-the 0 channel, 1 chip, 0 die, 0 plane has :             0 erase operations
-the 0 channel, 2 chip, 0 die, 0 plane has :             0 erase operations
-the 0 channel, 3 chip, 0 die, 0 plane has :             0 erase operations
-the 1 channel, 0 chip, 0 die, 0 plane has :             0 erase operations
-the 1 channel, 1 chip, 0 die, 0 plane has :             0 erase operations
-the 1 channel, 2 chip, 0 die, 0 plane has :             0 erase operations
-the 1 channel, 3 chip, 0 die, 0 plane has :             0 erase operations
-the 2 channel, 0 chip, 0 die, 0 plane has :             0 erase operations
-the 2 channel, 1 chip, 0 die, 0 plane has :             0 erase operations
-the 2 channel, 2 chip, 0 die, 0 plane has :             0 erase operations
-the 2 channel, 3 chip, 0 die, 0 plane has :             0 erase operations
-the 3 channel, 0 chip, 0 die, 0 plane has :             0 erase operations
-the 3 channel, 1 chip, 0 die, 0 plane has :             0 erase operations
-the 3 channel, 2 chip, 0 die, 0 plane has :             0 erase operations
-the 3 channel, 3 chip, 0 die, 0 plane has :             0 erase operations
-the 4 channel, 0 chip, 0 die, 0 plane has :             0 erase operations
-the 4 channel, 1 chip, 0 die, 0 plane has :             0 erase operations
-the 4 channel, 2 chip, 0 die, 0 plane has :             0 erase operations
-the 4 channel, 3 chip, 0 die, 0 plane has :             0 erase operations
-the 5 channel, 0 chip, 0 die, 0 plane has :             0 erase operations
-the 5 channel, 1 chip, 0 die, 0 plane has :             0 erase operations
-the 5 channel, 2 chip, 0 die, 0 plane has :             0 erase operations
-the 5 channel, 3 chip, 0 die, 0 plane has :             0 erase operations
-the 6 channel, 0 chip, 0 die, 0 plane has :             0 erase operations
-the 6 channel, 1 chip, 0 die, 0 plane has :             0 erase operations
-the 6 channel, 2 chip, 0 die, 0 plane has :             0 erase operations
-the 6 channel, 3 chip, 0 die, 0 plane has :             0 erase operations
-the 7 channel, 0 chip, 0 die, 0 plane has :             0 erase operations
-the 7 channel, 1 chip, 0 die, 0 plane has :             0 erase operations
-the 7 channel, 2 chip, 0 die, 0 plane has :             0 erase operations
-the 7 channel, 3 chip, 0 die, 0 plane has :             0 erase operations
-
-
----------------------------statistic data---------------------------
-page_move_count: 0
-all need recovery and invalid: 0  0
-recover 3599998476032 
-wl_page_move_count: 0
-rr_page_move_count: 0
-min lsn:             0
-max lsn:        -34060
-read count:       2467187
-program count:       2014862                        include the flash write count leaded by read requests
-the read operation leaded by un-covered update count:             0
-wl_request:             0
-erase count:             0
-rr_erase count:             0
-wl_erase count:             0
-normal_erase count:             0
-direct erase count:             0
-copy back count:             0
-multi-plane program count:             0
-multi-plane read count:             0
-interleave count:             0
-interleave read count:             0
-interleave two plane and one program count:             0
-interleave two plane count:             0
-gc copy back count:             0
-write flash count:       1602160
-write LSB count:        534062
-write CSB count:        534054
-write MSB count:        534044
-waste page count:             0
-interleave erase count:             0
-multiple plane erase count:             0
-interleave multiple plane erase count:             0
-read request count:        288305
-write request count:        785099
-read request average size:     58.568562
-write request average size:     15.184964
-read request average response time: 96722
-write request average response time: 20079
-I/O response time: 43649552946
-large write request average response time: 0
-buffer read hits:         15467
-buffer read miss:       1310634
-buffer write hits:       1085087
-buffer write miss:        386285
-buffer write free:         16384
-buffer eject:             0
-erase:             0
-RRcount:             0
-sub_request_all:             0, sub_request_success:             0
-index1:             0
-index2:             0
-aveber:      -nan
-
-
-
-number of vaild page be changed: 0
-number of vaild page when gc be created: 0
-rate is : -nan
-number of frequently write: 0
-number of not frequently write: 0
-when ssdsim finish the number of ssd->request: 0
-parityChange 67852
-all gcInterval128 0
-gcInterval128 0
-all  gcInterval256 0
-gcInterval256 0
-write
-6	104518	94938	99599	99813	0	102518	100795	104970	99636	0	106790	104087	111290	107799	0	1	111008	98621	102065	104915	0	100659	93590	101139	110718	0	95983	102993	101957	106779	0	
-gc
-0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
-channelWorkload:
-355899	360059	367979	379918	368446	356035	364295	368692	
-avg block -nan
-
+20000,    1523864503947,             0,        195708, -1025087049397,             0,             0,             0,             0,             0,       2088332,          8428,          1572,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0
+30000,    2110414395686,             0,       2013651, -1718486527670,             0,             0,             0,             0,             0,       2088332,          8087,          1913,             0,             0,             0,             0,             0,             0,             0,             0,             0,             0

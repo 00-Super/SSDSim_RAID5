@@ -1,11 +1,11 @@
 #parameter file
-#dram capacity = 134217728;     #the unit is B
+#dram capacity = 131072;     #the unit is B
 # 128MB DRAM TOTAL 32MB RESERVED FOR CONTROLLER
 #dram capacity = 131072; 
 #dram capacity = 100663296;
 # 32MB TEST
 #dram capacity = 0
-dram capacity = 0
+dram capacity = 134217728
 chip number[0] = 4;
 chip number[1] = 4;
 chip number[2] = 4;
@@ -47,7 +47,7 @@ page number = 384;
 subpage page = 16;
 page capacity = 8192;
 subpage capacity = 512;
-t_PROG = 50000;             #the unit is ns  Program 2000000
+t_PROG = 700000;             #the unit is ns  Program 2000000
 t_PROG_L = 500000;           #program on LSB
 t_PROG_C = 2000000;           #program on CSB
 t_PROG_M = 5500000;           #program on MSB
@@ -76,7 +76,7 @@ t_DH = 5;
 t_WC = 5;              #original value 25
 t_WH = 10;
 t_ADL = 70;
-t_R = 25000;                     #Read 75000
+t_R = 45000;                     #Read 75000
 t_AR = 10;
 t_CLR = 10;
 t_RR = 20;

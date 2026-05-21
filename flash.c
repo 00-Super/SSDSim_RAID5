@@ -342,7 +342,7 @@ Status allocate_location(struct ssd_info * ssd ,struct sub_request *sub_req)
 struct ssd_info * insert2buffer(struct ssd_info *ssd,unsigned int lpn,int state,struct sub_request *sub,struct request *req)      
 {
 	int write_back_count,flag=0;                                                             /*flag��ʾΪд���������ڿռ��Ƿ���ɣ�0��ʾ��Ҫ��һ���ڣ�1��ʾ�Ѿ��ڿ�*/
-	unsigned int i,lsn,hit_flag,add_flag,sector_count,active_region_flag=0,free_sector,current_sector=0;
+	unsigned int i,lsn,hit_flag,add_flag,sector_count,active_region_flag=0,free_sector=0;
 	struct buffer_group *buffer_node=NULL,*pt,*new_node=NULL,key;
 	struct sub_request *sub_req=NULL,*update=NULL;
 	
@@ -377,7 +377,7 @@ struct ssd_info * insert2buffer(struct ssd_info *ssd,unsigned int lpn,int state,
 		}
 		if(flag==0)     
 		{
-			write_back_count=sector_count;
+			write_back_count=sector_count-free_sector;
 			//ssd->dram->buffer->write_miss_hit=ssd->dram->buffer->write_miss_hit + size(state);
 			ssd->dram->buffer->write_miss_hit++;
 			
@@ -463,12 +463,7 @@ struct ssd_info * insert2buffer(struct ssd_info *ssd,unsigned int lpn,int state,
 		new_node->LRU_link_pre=NULL;
 		//avlTreeAdd(ssd->dram->buffer, (TREE_NODE *) new_node);
 		hash_add(ssd->dram->buffer, (HASH_NODE *) new_node);
-		current_sector = ssd->dram->buffer->buffer_sector_count + sector_count;
-		if(current_sector > ssd->dram->buffer->max_buffer_sector){
-			ssd->dram->buffer->buffer_sector_count = ssd->dram->buffer->max_buffer_sector;
-		}else{
-			ssd->dram->buffer->buffer_sector_count = current_sector;
-		}
+		ssd->dram->buffer->buffer_sector_count += sector_count;
 		
 	}
 	/****************************************************************************************
@@ -4125,111 +4120,4 @@ Status go_one_step(struct ssd_info * ssd, struct sub_request * sub1,struct sub_r
 	}
 
 	return SUCCESS;
-}
-
-void Insert2Parity_Buffer(struct ssd_info *ssd,unsigned int lpn,int state,struct sub_request *sub,struct request *req,unsigned int raidID){
-	struct buffer_group *buffer_node=NULL,*pt,*new_node=NULL,key;
-	struct sub_request *sub_req=NULL,*update=NULL;
-	unsigned int write_back_count,free_sector,sector_count,mask,current_sector = 0;
-	unsigned int sub_req_state=0, sub_req_size=0,sub_req_lpn,stripeID=0;
-	unsigned int flag = 0;
-
-	state = ~(0xffffffff<<(ssd->parameter->subpage_page));
-	sector_count=size(state);
-	mask=~(0xffffffff<<(ssd->parameter->subpage_page));
-
-	free_sector=ssd->dram->parity_buffer->max_buffer_sector-ssd->dram->parity_buffer->buffer_sector_count;  
-		
-	if(free_sector>=sector_count)
-	{
-		ssd->dram->parity_buffer->write_free++;
-		flag=1;    
-	}
-	if(flag==0)     
-	{
-		write_back_count=sector_count;
-		ssd->dram->parity_buffer->write_miss_hit++;
-		
-		while(write_back_count>0)
-		{
-			sub_req=NULL;
-			sub_req_state=ssd->dram->parity_buffer->buffer_tail->stored; 
-			sub_req_size=size(ssd->dram->parity_buffer->buffer_tail->stored);
-			sub_req_lpn=ssd->dram->parity_buffer->buffer_tail->group;
-			stripeID = ssd->dram->parity_buffer->buffer_tail->raidID;
-
-			if(ssd->dram->parity_buffer->buffer_tail->dirty == 1){
-				struct sub_request *XOR_req = NULL;
-				XOR_req = creat_sub_request(ssd, ssd->stripe.checkLpn , size(mask), mask,\
-				req, WRITE, TARGET_LSB, stripeID);
-			}
-			
-			/**********************************************************************************
-			*req��Ϊ�գ���ʾ���insert2buffer��������buffer_management�е��ã�������request����
-			*reqΪ�գ���ʾ�����������process�����д���һ�Զ�ӳ���ϵ�Ķ���ʱ����Ҫ���������
-			*�����ݼӵ�buffer�У�����ܲ���ʵʱ��д�ز�������Ҫ�����ʵʱ��д�ز��������������
-			*������������������
-			***********************************************************************************/
-			if(req!=NULL)                                             
-			{
-			}
-			else    
-			{
-				sub_req->next_subs=sub->next_subs;
-				sub->next_subs=sub_req;
-			}
-			
-			/*********************************************************************
-			*д������뵽��ƽ�����������ʱ��Ҫ�޸�dram��buffer_sector_count��
-			*ά��ƽ�����������avlTreeDel()��AVL_TREENODE_FREE()������ά��LRU�㷨��
-			**********************************************************************/
-			ssd->dram->parity_buffer->buffer_sector_count=ssd->dram->parity_buffer->buffer_sector_count-size(sub_req_state);
-			pt = ssd->dram->parity_buffer->buffer_tail;
-
-			hash_del_parity(ssd, ssd->dram->parity_buffer, (HASH_NODE *) pt, pt->raidID);  //TODO
-			if(ssd->dram->parity_buffer->buffer_head->LRU_link_next == NULL){
-				ssd->dram->parity_buffer->buffer_head = NULL;
-				ssd->dram->parity_buffer->buffer_tail = NULL;
-			}else{
-				ssd->dram->parity_buffer->buffer_tail=ssd->dram->parity_buffer->buffer_tail->LRU_link_pre;
-				ssd->dram->parity_buffer->buffer_tail->LRU_link_next=NULL;
-			}
-			pt->LRU_link_next=NULL;
-			pt->LRU_link_pre=NULL;
-
-			hash_node_free(ssd->dram->parity_buffer, (HASH_NODE *) pt);  //TODO
-			pt = NULL;
-			
-			write_back_count=write_back_count-size(sub_req_state);                            /*��Ϊ������ʵʱд�ز�������Ҫ������д�ز�����������*/
-		}	
-	}
-	
-	new_node=NULL;
-	new_node=(struct buffer_group *)malloc(sizeof(struct buffer_group));
-	alloc_assert(new_node,"buffer_group_node");
-	memset(new_node,0, sizeof(struct buffer_group));
-
-	new_node->read_count = 0;
-	new_node->group=lpn;
-	new_node->stored=state;
-	new_node->dirty_clean=state;
-	new_node->LRU_link_pre = NULL;
-	new_node->LRU_link_next=ssd->dram->parity_buffer->buffer_head;
-	new_node->dirty = 0;
-	new_node->raidID = raidID;
-	if(ssd->dram->parity_buffer->buffer_head != NULL){
-		ssd->dram->parity_buffer->buffer_head->LRU_link_pre=new_node;
-	}else{
-		ssd->dram->parity_buffer->buffer_tail = new_node;
-	}
-	ssd->dram->parity_buffer->buffer_head=new_node;
-	new_node->LRU_link_pre=NULL;
-	hash_add_parity(ssd->dram->parity_buffer, (HASH_NODE *) new_node,raidID);  //TODO
-	current_sector = ssd->dram->parity_buffer->buffer_sector_count + sector_count;
-	if(current_sector > ssd->dram->parity_buffer->max_buffer_sector){
-		ssd->dram->parity_buffer->buffer_sector_count = ssd->dram->parity_buffer->max_buffer_sector;
-	}else{
-		ssd->dram->parity_buffer->buffer_sector_count = current_sector;
-	}
-
 }

@@ -50,7 +50,4 @@ unsigned int XOR_process(struct ssd_info * ssd, int size);
 struct ssd_info *simulate_for_recovery(struct ssd_info *ssd);
 void get_data_distribute(struct ssd_info *ssd);
 
-/*add By BH*/
-void Insert2Parity_Buffer(struct ssd_info *ssd,unsigned int lpn,int state,struct sub_request *sub,struct request *req,unsigned int raidID);
-
 #endif

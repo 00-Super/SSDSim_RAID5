@@ -36,10 +36,7 @@ int hash_del(tHash *pHash ,HASH_NODE *pDelNode);
 void hash_node_free(tHash *pHash, HASH_NODE *pNode);
 int hash_destroy(tHash *pHash);
 
-/*针对奇偶校验缓存的hash操作*/
-HASH_NODE *hash_find_parity(struct ssd_info *ssd, tHash *pHash, HASH_NODE *pKeyNode,unsigned int raidID);
-int hash_del_parity(struct ssd_info *ssd, tHash *pHash ,HASH_NODE *pDelNode,unsigned int raidID);
-int hash_add_parity(tHash *pHash ,  HASH_NODE *pInsertNode,unsigned int raidID);
+
 
 
 
